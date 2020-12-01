@@ -1,0 +1,15 @@
+{
+	"name": "internetradio",
+	"version": "0.0.1",
+	"category": "projectalice",
+	"dependencies": {},
+	"author": "lazzaAU",
+	"license": "GPLv3",
+	"node-red": {
+		"nodes": {
+			"playradio": "playradio.js"
+
+		}
+	},
+	"devDependencies": {}
+}
