@@ -1,18 +1,17 @@
 {
-	"name": "Internetradio",
+	"name": "InternetRadio",
 	"speakableName": "Listen to the radio",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"icon": "fab fa-battle-net",
 	"category": "entertainment",
 	"author": "lazzaAU",
 	"maintainers": [],
 	"desc": "Listen to internet radio stations",
 	"aliceMinVersion": "1.0.0-b3",
-	"pipRequirements": [
-		"mpd"
-	],
+	"pipRequirements": [],
 	"systemRequirements": [
-		"mpd,mpc"
+		"mpd",
+		"mpc"
 	],
 	"conditions": {
 		"lang": [

@@ -1,0 +1,24 @@
+{
+	"radioStations": {
+		"defaultValue": "http://7279.live.streamtheworld.com:443/KDFCFMAAC_SC",
+		"dataType": "list",
+		"isSensitive": false,
+		"onUpdate": "configUpdated",
+		"values": {
+			"radio 1": "http://108.61.73.118:8030",
+			"K G E D": "http://kqed-ice.streamguys.org:80/kqedradio-ns-e1",
+			"K D F C": "http://7279.live.streamtheworld.com:443/KDFCFMAAC_SC",
+			"B B C": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk",
+			"radio 5": "http://85.25.100.57:8010/",
+			"radio 6": "http://109.123.116.202:8022/",
+			"radio 7": "http://relay.181.fm:8130",
+			"w b j c": "http://wbjc-sc.streamguys.org/",
+			"radio 9": "http://relay.181.fm:8016",
+			"radio 10": "http://stream2139.init7.net:80/",
+			"radio 11": "http://http-live.sr.se/p2-aac-192",
+			"radio 12": "http://wamu-1.streamguys.com:80",
+			"radio 13": "http://audio.wgbh.org:8000"
+		},
+		"description": "List your radio station urls as per above"
+	}
+}

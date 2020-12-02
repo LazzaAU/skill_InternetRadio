@@ -1,34 +1,49 @@
 {
-	"skill": "Internetradio",
+	"skill": "InternetRadio",
 	"slotTypes": [
 		{
-			"name": "DummySlot",
+			"name": "RadioStation",
 			"matchingStrictness": null,
 			"automaticallyExtensible": false,
 			"useSynonyms": true,
 			"values": [
 				{
-					"value": "foo",
+					"value": "B B C",
 					"synonyms": [
-						"bar"
+						"bbc",
+						"BBC"
 					]
+				},
+				{
+					"value": "flourida jazz"
 				}
 			]
 		}
 	],
 	"intents": [
 		{
-			"name": "Dummy",
+			"name": "ListenToRadio",
 			"enabledByDefault": true,
 			"utterances": [
-				"dummy {foo:=>DummySlotName}",
-				"bar"
+				"Play the {B B C:=>RadioStation} radio",
+				"play {b b c:=>RadioStation} on the radio",
+				"what's on the radio",
+				"play station {3:=>number}",
+				"play radio station number {one:=>number}",
+				"Play the radio please",
+				"I want to listen to the {florida jazz:=>RadioStation} radio"
 			],
 			"slots": [
 				{
-					"name": "DummySlotName",
+					"name": "RadioStation",
 					"required": false,
-					"type": "DummySlot",
+					"type": "RadioStation",
+					"missingQuestion": ""
+				},
+				{
+					"name": "number",
+					"required": false,
+					"type": "snips/number",
 					"missingQuestion": ""
 				}
 			]
