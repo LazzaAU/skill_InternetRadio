@@ -101,7 +101,7 @@ class InternetRadio(AliceSkill):
 		self.logInfo(f'Now be playing radio station from "{self._selectedStation}"')
 		self.Commons.runSystemCommand(f'mpc clear '.split())
 		self.Commons.runSystemCommand(f'mpc add {self._selectedStation}'.split())
-		# self.Commons.runSystemCommand(f'mpc play'.split())
+		self.Commons.runSystemCommand(f'mpc play'.split())
 		self._selectedStation = ""
 		self.endDialog(
 			sessionId=session.sessionId,
