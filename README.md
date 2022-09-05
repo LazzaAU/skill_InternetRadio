@@ -17,7 +17,7 @@ internet for this skill.
 Please read skill instructions for further details
 
 - Author: lazza
-- Maintainers: N/A
+- Maintainers: lazza
 - Alice minimum version: 1.0.0
 - Languages:
 
