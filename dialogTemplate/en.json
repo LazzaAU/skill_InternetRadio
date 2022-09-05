@@ -15,7 +15,7 @@
 					]
 				},
 				{
-					"value": "flourida jazz"
+					"value": "florida jazz"
 				}
 			]
 		}
@@ -31,7 +31,7 @@
 				"play station {3:=>number}",
 				"play radio station number {one:=>number}",
 				"Play the radio please",
-				"I want to listen to the {florida jazz:=>RadioStation} radio"
+				"I want to listen to the {florida jazz:=>RadioStation} station please"
 			],
 			"slots": [
 				{
