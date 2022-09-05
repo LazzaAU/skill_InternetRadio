@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"icon": "fab fa-battle-net",
 	"category": "entertainment",
-	"author": "lazzaAU",
+	"author": "lazza",
 	"maintainers": [],
 	"desc": "Listen to internet radio stations",
 	"aliceMinVersion": "1.0.0-b3",

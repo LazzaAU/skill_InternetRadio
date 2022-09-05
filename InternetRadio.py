@@ -1,3 +1,4 @@
+
 import json
 
 from core.base.model.AliceSkill import AliceSkill
@@ -39,9 +40,9 @@ class InternetRadio(AliceSkill):
 
 			# if user asks for list number that doesn't exist
 			if number > listLength:
-				self.logWarning('Number requested was larger than list... aborting')
+				self.logWarning('Number requested was larger than The Station list... aborting')
 				self.endDialog(
-					text='Provided number was out of range. Ask me again correctly'
+					text=self.randomTalk(text="dialogMessage1")
 				)
 				return
 			else:
@@ -71,12 +72,12 @@ class InternetRadio(AliceSkill):
 				return self.playExistingStation(session)
 			else:
 				self.endDialog(
-					text='Couldn\'t find that station. Please try again'
+					text=self.randomTalk(text="dialogMessage2")
 				)
 
 
-	def configUpdated(self, dt) -> bool:
-		self.logInfo(f'Updated slot Values in dialogTemplate')
+	def configUpdated(self) -> bool:
+		self.logInfo(f'Just updated the slot values in dialogTemplate')
 		self._data = self.readTemplateData()
 		self.addSlotValues()
 		return True
@@ -105,7 +106,7 @@ class InternetRadio(AliceSkill):
 		self._selectedStation = ""
 		self.endDialog(
 			sessionId=session.sessionId,
-			text='ok'
+			text=self.randomTalk(text="dialogMessage3")
 		)
 
 
@@ -118,7 +119,7 @@ class InternetRadio(AliceSkill):
 		data = json.loads(file.read_text())
 
 		slotValue = list()
-		# Setup the slot values
+		# Set up the slot values
 		for item in self._data:
 			tempData = {'value': item, 'synonyms': []}
 			slotValue.append(tempData)

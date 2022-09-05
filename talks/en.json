@@ -1,6 +1,26 @@
 {
-	"dummy": [
-		"example sentence",
-		"another example sentence"
-	]
+    "dialogMessage1": {
+        "default": [
+            "Provided number was out of range. Ask me again correctly"
+        ],
+        "short": [
+            "sorry, again ?"
+        ]
+    },
+    "dialogMessage2": {
+        "default": [
+            "Couldn't find that station. Please try again"
+        ],
+        "short": [
+            "Can't locate that"
+        ]
+    },
+    "dialogMessage3": {
+        "default": [
+            "ok"
+        ],
+        "short": [
+            "ok"
+        ]
+    }
 }
