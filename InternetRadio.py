@@ -99,7 +99,7 @@ class InternetRadio(AliceSkill):
 	def playExistingStation(self, session):
 		if not self._selectedStation:
 			self._selectedStation = self.getConfig('radioStations')
-		self.logInfo(f'Now be playing radio station from "{self._selectedStation}"')
+		self.logInfo(f'Now playing radio station from "{self._selectedStation}"')
 		self.Commons.runSystemCommand(f'mpc clear '.split())
 		self.Commons.runSystemCommand(f'mpc add {self._selectedStation}'.split())
 		self.Commons.runSystemCommand(f'mpc play'.split())
