@@ -8,9 +8,11 @@ This is a simple Radio streaming skill to be used via ProjectAlice. Simply ask a
 configured Radio Station and she'll play it for you. It's internet based so you will need 
 internet for this skill.
 
-Start Playing the radio by asking alice.
-Change stations by asking alice
-Add your own radio stations to the existing list
+- Start Playing the radio by asking alice.
+
+- Change stations by asking alice to change them.
+
+- Add your own radio stations to the existing list
 
 Please read skill instructions for further details
 
