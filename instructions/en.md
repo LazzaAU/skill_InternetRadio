@@ -5,6 +5,8 @@ You can add and remove stations to suit your taste. Please see below details. Th
 turn off using voice commands, will depend on the level of the music playing. If Alice doesn't respond to 
 ``` Stop playing radio``` then I suggest you ask her via the web ui, or in the command line type ```mpc stop```
 
+TIP: If your looking for a more advanced radio skill, try [Nepos MultiRoom Radio skill](https://github.com/poulsp/skill_MultiRoomRadioManager/blob/master/instructions/en.md)
+
 The skill comes with a multitude of Stations to choose from already. You can add your own if required as per below
 
 ## Adding your own Radio Stations
