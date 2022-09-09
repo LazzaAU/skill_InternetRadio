@@ -1,10 +1,11 @@
 ## About the skill
 
-This skill is a simple radio player. You can start the radio by asking Alice as per below. However, the downside with
-the skill is due to alice's audio system being in use via the skill she won't hear you if you ask her to turn it off. 
-Therefore, you'll have to disable the skill via a Node red injection or via the command line.
+This skill is a simple radio player that plays stations that are configured in the config.json.template file.
+You can add and remove stations to suit your taste. Please see below details. The radio skill may or may not
+turn off using voice commands, will depend on the level of the music playing. If Alice doesn't respond to 
+``` Stop playing radio``` then I suggest you ask her via the web ui, or in the command line type ```mpc stop```
 
-The skill comes with a handfull of Stations to choose from already. You can add your own if required as per below
+The skill comes with a multitude of Stations to choose from already. You can add your own if required as per below
 
 ## Adding your own Radio Stations
 
@@ -15,21 +16,31 @@ Find the URL of your favorite Internet based radio station. Once you have the UR
 
 Example format...
 
-``
-"values": {
+
+>"values": {
 			"The speakable name of the Station": "the station URL"
 			}
-``	
+
+	
 		
 Proper example:
 
-``
-"values": {
-			"Jazz": "http://theJazzStationURL",
-			"eighties Music": "http://80sMusicUrl",
+
+>"values": {
+			"Jazz": "http://theJazzStationURL.pls",
+			"eighties Music": "http://80sMusicUrl.m3u",
 			"B B C": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk"
 			}
-``			
+
+			
+### The station URL can be in the following streaming formats:
+
+
+- *.pls URLS
+- *.m3u URLS
+- Direct streaming links
+
+NOTE :  *.m3u8 URLS currently not supported
 
 ## Functionality of the skill
 
@@ -44,19 +55,37 @@ Changing between stations can be done by :
 2. Selecting it from the drop-down list in the skill settings
 3. saying -> play station number "then the number". This will play what ever line number you've choosen 
 
-When alice understands what station you want to play she will
+NOTE: Intenets aim to have the word "radio" in them so that the intent is less likely to
+clash when someonemakes a spotify or other music skill.
+
+
+When Alice understands what station you want to play she will
 
 - mpc clear
 - mpc add
 - mpc play
 
-To stop playing you'll have to use something like Node red or use the command line. Use the command ```mpc stop```
+Reminder: To stop playing you'll have to use something like Node red or use the command line. Use the command ```mpc stop```
 
-By changing station via any of the above methods, Alice will write the listed names from the config.json.template file
-to the dialogTemplate slot's, so you can request that radio station. She'll do this when you 
+## Lets talk about Back-up files
 
-1. Click save in the skill settings
-2. Request a different station from the current one
+The skill backs up your stations to a Backup directory. The files being backed up are the dialogTemplate file 
+and the config.json.template file. If you modify the config.json.template manually, upon next Alice restart she 
+will do a back-up.
 
-So. If you add new URl's or update the speakable names in the config.json.template file, open the skill settings
-and click "save" that'll update the slots in dialogTemplate
+So. If you add new URl's or update the speakable names in the config.json.template file, Alice will
+
+-  Write the station names to the dialogTemplate file as values
+- Then she'll do a back-up of the above two files
+- You'll then need to re-train her or restart her to trigger training
+
+- NOTE: My advice would be to enable the "enable Backup" toggle in the skill settings only when you make changes to the
+config.json.template file, reboot and let her retrain. Then disable it again.
+
+	- Reason being : If the skill gets updated.... the template file is a main file so it "might" get overwritten which 
+will trigger a back-up command (if enabled) on re boot, which in turn would over write your existing back-up file with
+the standard diaolg file and config file... defeating the purpose of a back-up file :)
+
+The back-up files are there to manually copy and overwrite existing files if the skill gets updated and/or you lose
+your custom list of stations for what ever reason. This feature, although called back-up, was added purely to save you
+adding values to the dialog file manually. Just so happens it can also be used as a back-up :)

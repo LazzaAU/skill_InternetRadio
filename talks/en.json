@@ -1,15 +1,22 @@
 {
     "dialogMessage1": {
         "default": [
-            "Provided number was out of range. Ask me again correctly"
+            "{0} was out of range. Ask me again with a number below {1}",
+			"Number {0} is not found, try a number below {1}",
+			"Try a number below {1}. Because {0} doesn't work for me"
         ],
         "short": [
-            "sorry, again ?"
+            "Sorry, again ?",
+			"Try number below {1}",
+			"Failed"
         ]
     },
     "dialogMessage2": {
         "default": [
-            "Couldn't find that station. Please try again"
+            "Couldn't find that station. Please try again",
+			"Seems to be a issue there, try another station",
+			"Houston we have a problem. Try another station please",
+			"That's a shame. Seems i can't find that station"
         ],
         "short": [
             "Can't locate that"
@@ -22,5 +29,16 @@
         "short": [
             "ok"
         ]
-    }
+    },
+	"dialogMessage4": {
+		"default": [
+			"Ok, Playing the Radio now ",
+			"Done. Remember to put on your dancing shoes",
+			"Time to get your groove on baby",
+			"awww, Just when I was about to sing for you. I'll put the radio on instead"
+		],
+		"short": [
+			"ok"
+		]
+	}
 }

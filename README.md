@@ -14,7 +14,15 @@ internet for this skill.
 
 - Add your own radio stations to the existing list
 
-Please read skill instructions for further details
+Please read skill instructions for further details:
+
+Supported streaming formats are :
+- *.pls URLS
+- *.m3u URLS
+- Direct streaming links
+
+NOTE :  *.m3u8 URLS currently not supported
+
 
 - Author: lazza
 - Maintainers: lazza

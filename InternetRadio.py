@@ -1,9 +1,13 @@
-
 import json
+import re
+import urllib
 
+#from skills.AliceDevTools import AliceDevTools
 from core.base.model.AliceSkill import AliceSkill
 from core.dialog.model.DialogSession import DialogSession
 from core.util.Decorators import IntentHandler
+from pathlib import Path
+from urllib.request import urlopen
 
 
 class InternetRadio(AliceSkill):
@@ -12,24 +16,48 @@ class InternetRadio(AliceSkill):
 	Description: Listen to internet radio stations
 	"""
 
-
 	def __init__(self):
 
 		self._templatePath = '/InternetRadio/config.json.template'
 		self._selectedStation = ""
 		self._data = dict()
+		self._backupPath = ""
+		self.playlist = list()
+		#AliceDev used for internal developer use
+		#self.AliceDev = AliceDevTools.AliceDevTools()
 
 		super().__init__()
 
+	@IntentHandler('StopPlayingRadio')
+	def StopRadio(self, session: DialogSession):
+		"""
+		Used for stopping music playing. In general this may not work due to alice's
+		speaker running already. However, still triggers from dialog view in the GUI
+		:param session: the dialog session
+		:return:
+		"""
+		if 'StopTheRadio' in session.slotsAsObjects:
+			self.Commons.runSystemCommand(f'mpc stop '.split())
+			self.Commons.runSystemCommand(f'mpc clear '.split())
+		self.endDialog(
+			sessionId=session.sessionId,
+			text="No worries, Stopping the radio now",
+			deviceUid=session.deviceUid
+		)
 
 	@IntentHandler("ListenToRadio")
 	def setupTheStation(self, session: DialogSession, **_kwargs):
 		# Read the config.json.template file to get the list of values
-		self._data = self.readTemplateData()
+		self._data = self.readTemplateData(configPath=self.getResource('config.json.template'))
 
 		# If user has not specified a station, just play the default station
 		if not 'RadioStation' in session.slotsAsObjects and not 'number' in session.slotsAsObjects:
-			self.playExistingStation(session=session)
+			self.stationSelected(station=self.getConfig(key='radioStations'))
+			self.endDialog(
+				sessionId=session.sessionId,
+				text=self.randomTalk(text="dialogMessage4"),
+				deviceUid=session.deviceUid
+			)
 			return
 
 		# If user specified the station, match it up to the url
@@ -40,9 +68,10 @@ class InternetRadio(AliceSkill):
 
 			# if user asks for list number that doesn't exist
 			if number > listLength:
-				self.logWarning('Number requested was larger than The Station list... aborting')
 				self.endDialog(
-					text=self.randomTalk(text="dialogMessage1")
+					sessionId=session.sessionId,
+					text=self.randomTalk(text="dialogMessage1", replace=[number, listLength +1]),
+					deviceUid=session.deviceUid
 				)
 				return
 			else:
@@ -50,12 +79,15 @@ class InternetRadio(AliceSkill):
 				for item in self._data:
 					# update the config with selected url via number selection
 					if counter == number:
-						if self._data.get(item) == self.getConfig('radioStations'):
-							return self.playExistingStation(session)
-
 						self._selectedStation = self._data.get(item)
 						self.updateConfig(key='radioStations', value=self._selectedStation)
-						return self.playExistingStation(session)
+						self.endDialog(
+							sessionId=session.sessionId,
+							text=self.randomTalk(text="dialogMessage4"),
+							deviceUid=session.deviceUid
+						)
+						self.stationSelected(station=self._selectedStation)
+						return
 					counter += 1
 
 		choosenStation = session.slotValue('RadioStation')
@@ -63,29 +95,49 @@ class InternetRadio(AliceSkill):
 		for key in self._data:
 			# update the config with choosen station via station name
 			if key in choosenStation:
-				# If station being requested is existing station, just play it
-				if self._data.get(key) == self.getConfig('radioStations'):
-					return self.playExistingStation(session)
-
+				# Find the requested station
 				self._selectedStation = self._data.get(key)
 				self.updateConfig(key='radioStations', value=self._selectedStation)
-				return self.playExistingStation(session)
-			else:
 				self.endDialog(
-					text=self.randomTalk(text="dialogMessage2")
+					sessionId=session.sessionId,
+					text=self.randomTalk(text="dialogMessage4"),
+					deviceUid=session.deviceUid
 				)
+				self.stationSelected(station=self._selectedStation)
+				return
+		else:
+			self.endDialog(
+				sessionId=session.sessionId,
+				text=self.randomTalk(text="dialogMessage2"),
+				deviceUid=session.deviceUid
+			)
 
+	def stationSelected(self, station: str, session = None):
+		"""
+		When the user clicks the "confirm" button on the skill settings....
+		or selects a station verbally
+		Then parse the Url and play the selected Station
+		:return:
+		"""
+		self.parsePlaylists(stationUrl=station)
+		if self.playlist or self._selectedStation:
+			self.runThePlayer()
 
-	def configUpdated(self) -> bool:
-		self.logInfo(f'Just updated the slot values in dialogTemplate')
-		self._data = self.readTemplateData()
-		self.addSlotValues()
+		if session:
+			self.endDialog(
+				sessionId=session.sessionId,
+				text=self.randomTalk(text="dialogMessage3")
+			)
 		return True
 
 
-	# Read and store the template list
-	def readTemplateData(self):
-		configPath = self.getResource('config.json.template')
+	@staticmethod
+	def readTemplateData(configPath : Path):
+		"""
+		Read and store the template list
+		:return: dictionary of just the radio station list
+		"""
+
 		data = json.loads(configPath.read_text())
 		tempData = dict()
 
@@ -96,32 +148,60 @@ class InternetRadio(AliceSkill):
 		return tempData
 
 
-	def playExistingStation(self, session):
-		if not self._selectedStation:
-			self._selectedStation = self.getConfig('radioStations')
-		self.logInfo(f'Now playing radio station from "{self._selectedStation}"')
+	def runThePlayer(self):
+		"""
+		Commands to run the actual player
+		:return:
+		"""
+		self.Commons.runSystemCommand(f'mpc stop '.split())
 		self.Commons.runSystemCommand(f'mpc clear '.split())
-		self.Commons.runSystemCommand(f'mpc add {self._selectedStation}'.split())
-		self.Commons.runSystemCommand(f'mpc play'.split())
-		self._selectedStation = ""
-		self.endDialog(
-			sessionId=session.sessionId,
-			text=self.randomTalk(text="dialogMessage3")
-		)
 
+		if self.playlist:
+			urlPlaying = self.playlist[0]
+			for item in self.playlist:
+				self.Commons.runSystemCommand(f'mpc add {item}'.split())
+		else:
+			urlPlaying = self._selectedStation
+			self.Commons.runSystemCommand(f'mpc add {self._selectedStation}'.split())
+
+		result = self.Commons.runSystemCommand(f'mpc play'.split())
+
+		if self.getConfig(key='debugMode'):
+			status = self.Commons.runSystemCommand(f'mpc status'.split())
+			currentPlaylist = self.Commons.runSystemCommand(f'mpc playlist'.split())
+			self.logDebug(f"MPC status is {status}")
+			self.logWarning("--")
+			self.logDebug(f"Current playlist is {currentPlaylist}")
+			self.logWarning("--")
+
+		if not result.returncode:
+			self.logInfo(f'Playing Radio Station from *** {urlPlaying} ***')
+
+		else:
+			self.logWarning(f"Failed to play due to {result.stderr}")
+
+		self._selectedStation = ""
+		self.playlist = list()
 
 	def addSlotValues(self) -> bool:
-
+		"""
+		Update the dialogTemplate file with new slotvalues based on config.json.template
+		Then copy that file to the backup folder
+		:return:
+		"""
 		file = self.getResource(f'dialogTemplate/{self.activeLanguage()}.json')
+
 		if not file:
 			return False
 		# load the dialogTemplate file data
 		data = json.loads(file.read_text())
 
 		slotValue = list()
+
 		# Set up the slot values
 		for item in self._data:
 			tempData = {'value': item, 'synonyms': []}
+
 			slotValue.append(tempData)
 
 		# Add slot values to the dialogTemplate slotType
@@ -130,5 +210,83 @@ class InternetRadio(AliceSkill):
 				data['slotTypes'][i]['values'] = slotValue
 
 		file.write_text(json.dumps(data, ensure_ascii=False, indent=4))
+		self.logInfo(f"Radio files have been backed up, please retrain or restart Alice")
 
+		# Make a backup of the file , so user can back up settings if needed
+		self.Commons.runSystemCommand(['cp', file, self.getResource(f'Backup/dialogTemplate/{self.activeLanguage()}.json') ])
 		return True
+
+	def BackupPathRoutines(self):
+		"""
+		Make backup directories if they don't exist. Then Backup the config.template file
+		if it's not the same as existing backup
+		:return:
+		"""
+
+		self._data = self.readTemplateData(configPath=self.getResource('config.json.template'))
+		if not self.getResource('Backup').exists():
+			self.logWarning(f'No BackUp directory found, so I\'m making one')
+			self.getResource("Backup").mkdir()
+			self.getResource("Backup/dialogTemplate").mkdir()
+
+		if self.getResource('Backup/config.json.template').exists():
+			self.logInfo("Retreiving Backup Data")
+			templateData = self.readTemplateData(self.getResource('config.json.template'))
+			BackupTemplateData = self.readTemplateData(self.getResource('Backup/config.json.template'))
+
+			# Check if config template file is not the same as the backup version
+			if not templateData == BackupTemplateData:
+				self.Commons.runSystemCommand(["rm", "-f", self.getResource('Backup/config.json.template')])
+				self.Commons.runSystemCommand(["cp", self.getResource('config.json.template'), self.getResource('Backup/config.json.template')])
+				self.addSlotValues()
+		else:
+			self.Commons.runSystemCommand(["cp", self.getResource('config.json.template'), self.getResource('Backup/config.json.template')])
+			self.Commons.runSystemCommand(['cp', self.getResource(f'dialogTemplate/{self.activeLanguage()}.json'), self.getResource(f'Backup/dialogTemplate/{self.activeLanguage()}.json') ])
+			self.logDebug(f"Just backed up your Radio configuration")
+
+	def onBooted(self) -> bool:
+		self.BackupPathRoutines()
+		super().onBooted()
+		return True
+
+	def parsePlaylists(self, stationUrl):
+		"""
+		Parse .pls playlists and .m3u playlists and direct streaming links
+		:param stationUrl: The selected URL to play
+		:return:
+		"""
+
+		urlFormat = ""
+		urlType = ""
+		self.playlist = list()
+
+		if "tuneIn" in stationUrl and ".pls" in stationUrl:
+			urlFormat = "http.+(?=\r)"
+			urlType = "tuneIn .pls"
+		elif not "tuneIn" in stationUrl and ".pls" in stationUrl:
+			urlFormat = "http.+"
+			urlType = "General .pls"
+		if ".m3u" in stationUrl and not ".m3u8" in stationUrl:
+			urlFormat = "ht.+"
+			urlType = "m3u"
+
+		if not urlFormat:
+			self._selectedStation = stationUrl
+			return
+
+		try:
+			if self.getConfig(key='debugMode'):
+				self.logInfo(f" {urlType} detected")
+			req = urllib.request.urlopen(stationUrl)
+			file = req.read()
+			decodedFile = file.decode() # From bytes to str
+
+			if self.getConfig(key='debugMode'):
+				self.logDebug(f"Pre-parsed URL: {decodedFile}")
+			pattern = re.compile(urlFormat)
+
+			for item in pattern.findall(decodedFile):
+				self.playlist.append(item)
+
+		except Exception as msg:
+			self.logWarning(f"{msg}")

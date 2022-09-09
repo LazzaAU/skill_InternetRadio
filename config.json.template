@@ -1,9 +1,9 @@
 {
 	"radioStations": {
-		"defaultValue": "http://7279.live.streamtheworld.com:443/KDFCFMAAC_SC",
+		"defaultValue": "http://somafm.com/startstream=groovesalad.pls",
 		"dataType": "list",
 		"isSensitive": false,
-		"onUpdate": "configUpdated",
+		"onUpdate": "stationSelected",
 		"values": {
 			"radio 1": "http://108.61.73.118:8030",
 			"K G E D": "http://kqed-ice.streamguys.org:80/kqedradio-ns-e1",
@@ -17,8 +17,54 @@
 			"radio 10": "http://stream2139.init7.net:80/",
 			"radio 11": "http://http-live.sr.se/p2-aac-192",
 			"radio 12": "http://wamu-1.streamguys.com:80",
-			"radio 13": "http://audio.wgbh.org:8000"
+			"radio 13": "http://audio.wgbh.org:8000",
+			"BAGeL Radio": "https://ais-sa3.cdnstream1.com/2606_128.aac",
+			"Boot Liquor": "http://somafm.com/bootliquor.pls",
+			"Thistle Radio": "http://somafm.com/thistle.pls",
+			"Chillout": "http://somafm.com/startstream=groovesalad.pls",
+			"Commodore 64 Remixes": "http://www.slayradio.org/tune_in.php/128kbps/listen.m3u",
+			"Covers": "http://somafm.com/covers.pls",
+			"Downtempo": "http://somafm.com/secretagent.pls",
+			"Dub Step": "http://somafm.com/dubstep.pls",
+			"Electronic Dance": "http://www.shouted.fm/tunein/electro-dsl.m3u",
+			"Folk Music": "http://somafm.com/folkfwd.pls",
+			"Hot 97 NYC": "http://playerservices.streamtheworld.com/pls/WQHTAAC.pls",
+			"Beat Blender": "http://somafm.com/startstream=beatblender.pls",
+			"Indie Pop": "http://somafm.com/indiepop130.pls",
+			"Intelligent dance music": "http://somafm.com/startstream=cliqhop.pls",
+			"Jazz music": "http://somafm.com/startstream=sonicuniverse.pls",
+			"Lounge music": "http://somafm.com/illstreet.pls",
+			"Pop music": "http://somafm.com/poptron.pls",
+			"Frequence 3": "http://streams.frequence3.net/hd-mp3.m3u",
+			"Progressive music": "http://somafm.com/tagstrance.pls",
+			"Public Radio ": "http://wnyc-iheart.streamguys.com/wnycfm-iheart.aac",
+			"Reggae music": "http://www.raggakings.net/listen.m3u",
+			"Rock Music": "http://somafm.com/digitalis.pls",
+			"Rock Goth": "http://r2d2.voxnoctem.de:8000/voxnoctem.mp3",
+			"Beyond Metal": "http://streamingV2.shoutcast.com/BeyondMetal",
+			"Dance UK": "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://uk2.internet-radio.com:8024/listen.pls&t=.pls",
+			"JazzGroove": "https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://199.180.72.2:8015/listen.pls?sid=1&t=.pls",
+			"Main Mix": "http://stream.radioparadise.com/aac-128",
+			"Mellow Mix": "http://stream.radioparadise.com/mellow-128",
+			"Rock Mix": "http://stream.radioparadise.com/rock-128",
+			"Eclectic Mix": "http://stream.radioparadise.com/eclectic-128",
+			"Echoes of Bluemars": "http://streams.echoesofbluemars.org:8000/bluemars.m3u",
+			"Cryoslee": "http://streams.echoesofbluemars.org:8000/cryosleep.m3u",
+			"Voices from Within": "http://streams.echoesofbluemars.org:8000/voicesfromwithin.m3u",
+			"Triple J": "http://www.abc.net.au/res/streaming/audio-live/shout-mp3/triplej-mp3-qld.pls"
 		},
 		"description": "List your radio station urls as per above"
+	},
+	"debugMode": {
+		"defaultValue": false,
+		"dataType": "boolean",
+		"isSensitive": false,
+		"description": "Allows debug mode to view whats going on"
+	},
+	"enableBackup": {
+		"defaultValue": false,
+		"dataType": "boolean",
+		"isSensitive": false,
+		"description": "Allows Alice to backup the internet radio files"
 	}
 }
