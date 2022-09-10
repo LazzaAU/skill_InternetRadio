@@ -226,7 +226,7 @@
                 "play station number {5:=>number}",
                 "play radio station number {one:=>number}",
                 "Play the radio please",
-                "I want to listen to the {chiilout:=>RadioStation} radio please"
+                "I want to listen to the {B B C:=>RadioStation} radio please"
             ],
             "slots": [
                 {
