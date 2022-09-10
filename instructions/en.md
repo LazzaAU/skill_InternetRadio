@@ -74,6 +74,10 @@ When Alice understands what station you want to play she will
 Reminder: To stop playing you "might" have to use something like Node red or use the command line. Use the command " mpc stop "
 
 ## Let's talk about Back-up files
+For the back-up option to work you need to enable it in the settings and turn Dev mode on in alice's settings.
+Without Dev mode on and left on, Alice is likely to put the skill back to default values with she cleans her house, 
+meaning you'll probably lose any custom radio stations you might of added.
+
 
 The skill backs up your stations to a Backup directory. The files being backed up are the dialogTemplate file 
 and the config.json.template file. If you modify the config.json.template manually, upon next Alice restart she 
