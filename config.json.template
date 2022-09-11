@@ -66,5 +66,19 @@
 		"dataType": "boolean",
 		"isSensitive": false,
 		"description": "Allows Alice to backup the internet radio files"
+	},
+	"playTheRadio": {
+		"defaultValue": false,
+		"dataType": "boolean",
+		"isSensitive": false,
+		"description": "Enable to play the radio when you click confirm",
+		"onUpdate": "startPlaying"
+	},
+	"stopTheRadio": {
+		"defaultValue": false,
+		"dataType": "boolean",
+		"isSensitive": false,
+		"description": "Enable to stop the radio when you click confirm",
+		"onUpdate": "stopPlaying"
 	}
 }

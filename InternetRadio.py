@@ -39,9 +39,12 @@ class InternetRadio(AliceSkill):
 		if 'StopTheRadio' in session.slotsAsObjects:
 			self.Commons.runSystemCommand(f'mpc stop '.split())
 			self.Commons.runSystemCommand(f'mpc clear '.split())
+			if self.getConfig('startPlaying'):
+				self.updateConfig(key='startPlaying', value=False)
+
 		self.endDialog(
 			sessionId=session.sessionId,
-			text="No worries, Stopping the radio now",
+			text=self.randomTalk(text="dialogMessage4"),
 			deviceUid=session.deviceUid
 		)
 
@@ -53,6 +56,7 @@ class InternetRadio(AliceSkill):
 		# If user has not specified a station, just play the default station
 		if not 'RadioStation' in session.slotsAsObjects and not 'number' in session.slotsAsObjects:
 			self.stationSelected(station=self.getConfig(key='radioStations'))
+
 			self.endDialog(
 				sessionId=session.sessionId,
 				text=self.randomTalk(text="dialogMessage4"),
@@ -112,11 +116,59 @@ class InternetRadio(AliceSkill):
 				deviceUid=session.deviceUid
 			)
 
+	def stopPlaying(self, value):
+
+		if value:
+			self.Commons.runSystemCommand(f'mpc stop '.split())
+			self.Commons.runSystemCommand(f'mpc clear '.split())
+
+			self.ThreadManager.doLater(
+				interval=4,
+				func=self.delayedConfigUpdate,
+				args=[
+					'stopPlaying',
+					False
+				]
+			)
+			if self.getConfig('startPlaying'):
+				self.ThreadManager.doLater(
+					interval=5,
+					func=self.delayedConfigUpdate,
+					args=[
+						'startPlaying',
+						False
+					]
+				)
+			self.say(
+				text=self.randomTalk(text="dialogMessage5")
+			)
+
+		return True
+
+	def delayedConfigUpdate(self, key :str, value : bool):
+		"""
+		Required function to update the config on a timer after a onUpdate event
+		"""
+		self.updateConfig(key=key, value=value)
+
+
+	def startPlaying(self, value):
+		if value:
+			self.stationSelected(station=self.getConfig('radioStations'))
+			self.ThreadManager.doLater(
+				interval=5,
+				func=self.delayedConfigUpdate,
+				args=[
+					'stopPlaying',
+					False
+				]
+			)
+		return True
+
 	def stationSelected(self, station: str, session = None):
 		"""
-		When the user clicks the "confirm" button on the skill settings....
-		or selects a station verbally
-		Then parse the Url and play the selected Station
+		When the user clicks the "confirm" button on the skill settings after selecting a station, or by verbally
+		Then parse the Url and play the selected Station, or stop the player if that toggle is enabled
 		:return:
 		"""
 		self.parsePlaylists(stationUrl=station)

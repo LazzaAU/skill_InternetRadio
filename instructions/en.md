@@ -3,13 +3,7 @@
 This skill is a simple radio player that plays stations that are configured in the config.json.template file.
 You can add and remove stations to suit your taste. Please see below details.
 
-
-The radio skill may or may not turn off using voice commands, it will depend on the level of the music playing. 
-If Alice doesn't respond to "Stop playing radio" then I suggest you ask her via the web ui,
-or alternatively in the command line you can type "mpc stop".
-
-This skill comes with a multitude of Stations to choose from already. You can add your own if required as per below
-
+This skill comes with a several Stations to choose from already. You can add your own if required as per below
 
 - TIP: If your looking for a more advanced radio skill, try [Nepos MultiRoom Radio skill](https://github.com/poulsp/skill_MultiRoomRadioManager/blob/master/instructions/en.md)
 
@@ -50,10 +44,15 @@ NOTE :  *.m3u8 URLS currently not supported
 
 ## Functionality of the skill
 
-You can ask Alice variations of the below :
+To play the radio
 
+* Ask Alice variations of :
 - Play the B B C radio 
 - Play station number 3
+
+* Or from the skill settings :
+- Selecting a different station in the dop down list will automatically play that station
+- Enabling "turn on the radio" in the skill settings will play the current listed station
 
 Changing between stations can be done by :
 
@@ -62,21 +61,22 @@ Changing between stations can be done by :
 3. saying -> play station number "then the number". This will play what ever line number you've choosen 
 
 NOTE: Intents aim to have the word "radio" in them so that the intent is less likely to
-clash when someone makes a spotify or other music skill.
+clash when someone makes a spotify or some other music skill.
 
+## Stopping the radio
+Depending on your speaker volume, it is possible that Alice may not hear or understand you if you ask her to "Stop the radio"
 
-When Alice understands what station you want to play she will
+In this situation you have a few options to turn the radio off. Below i've listed some of the easy options.
 
-- mpc clear
-- mpc add
-- mpc play
+1. Type "stop the radio" in Alices dialog view
+2. Open the skills settings and turn on the "stop the radio" toggle.
+3. Type "mpc stop" in the command line
 
-Reminder: To stop playing you "might" have to use something like Node red or use the command line. Use the command " mpc stop "
 
 ## Let's talk about Back-up files
-For the back-up option to work you need to enable it in the settings and turn Dev mode on in alice's settings.
-Without Dev mode on and left on, Alice is likely to put the skill back to default values with she cleans her house, 
-meaning you'll probably lose any custom radio stations you might of added.
+For the back-up option to work you need to enable it in the settings and turn "Dev mode" on in alice's settings.
+Without Dev mode on and left on, Alice is likely to put the skill back to default values when she cleans her house, 
+meaning you'll probably lose any custom radio stations you might have added.
 
 
 The skill backs up your stations to a Backup directory. The files being backed up are the dialogTemplate file 

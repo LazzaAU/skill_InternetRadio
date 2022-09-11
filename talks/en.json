@@ -32,11 +32,19 @@
     },
 	"dialogMessage4": {
 		"default": [
-			"Ok, Playing the Radio now ",
-			"Done. Remember to put on your dancing shoes",
+			"Ok, Playing the radio now ",
+			"Done. Remember to put your dancing shoes on",
 			"Time to get your groove on baby",
 			"awww, Just when I was about to sing for you. I'll put the radio on instead"
 		],
+		"short": [
+			"ok"
+		]
+	},
+	"dialogMessage5": {
+		"default": [
+			"No worries, Stopping the Radio now "
+			],
 		"short": [
 			"ok"
 		]
