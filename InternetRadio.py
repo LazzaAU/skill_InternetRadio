@@ -14,7 +14,8 @@ class InternetRadio(AliceSkill):
 	Author: lazzaAU
 	Description: Listen to internet radio stations
 	"""
-
+	_CONFIGTEMPLATE = 'config.json.template'
+	_BACKUPCONFIGTEMPLATE = 'Backup/config.json.template'
 	def __init__(self):
 
 		self._templatePath = '/InternetRadio/config.json.template'
@@ -48,7 +49,7 @@ class InternetRadio(AliceSkill):
 	@IntentHandler("ListenToRadio")
 	def setupTheStation(self, session: DialogSession, **_kwargs):
 		# Read the config.json.template file to get the list of values
-		self._data = self.readTemplateData(configPath=self.getResource('config.json.template'))
+		self._data = self.readTemplateData(configPath=self.getResource(self._CONFIGTEMPLATE))
 
 		# If user has not specified a station, just play the default station
 		if not 'RadioStation' in session.slotsAsObjects and not 'number' in session.slotsAsObjects:
@@ -272,24 +273,24 @@ class InternetRadio(AliceSkill):
 		:return:
 		"""
 
-		self._data = self.readTemplateData(configPath=self.getResource('config.json.template'))
+		self._data = self.readTemplateData(configPath=self.getResource(self._CONFIGTEMPLATE))
 		if not self.getResource('Backup').exists():
 			self.logWarning(f'No BackUp directory found, so I\'m making one')
 			self.getResource("Backup").mkdir()
 			self.getResource("Backup/dialogTemplate").mkdir()
 
-		if self.getResource('Backup/config.json.template').exists():
+		if self.getResource(self._BACKUPCONFIGTEMPLATE).exists():
 			self.logInfo("Retreiving Backup Data")
-			templateData = self.readTemplateData(self.getResource('config.json.template'))
-			BackupTemplateData = self.readTemplateData(self.getResource('Backup/config.json.template'))
+			templateData = self.readTemplateData(self.getResource(self._CONFIGTEMPLATE))
+			backupTemplateData = self.readTemplateData(self.getResource(self._BACKUPCONFIGTEMPLATE))
 
 			# Check if config template file is not the same as the backup version
-			if not templateData == BackupTemplateData:
-				self.Commons.runSystemCommand(["rm", "-f", self.getResource('Backup/config.json.template')])
-				self.Commons.runSystemCommand(["cp", self.getResource('config.json.template'), self.getResource('Backup/config.json.template')])
+			if not templateData == backupTemplateData:
+				self.Commons.runSystemCommand(["rm", "-f", self.getResource(self._BACKUPCONFIGTEMPLATE)])
+				self.Commons.runSystemCommand(["cp", self.getResource(self._CONFIGTEMPLATE), self.getResource(self._BACKUPCONFIGTEMPLATE)])
 				self.addSlotValues()
 		else:
-			self.Commons.runSystemCommand(["cp", self.getResource('config.json.template'), self.getResource('Backup/config.json.template')])
+			self.Commons.runSystemCommand(["cp", self.getResource(self._CONFIGTEMPLATE), self.getResource(self._BACKUPCONFIGTEMPLATE)])
 			self.Commons.runSystemCommand(['cp', self.getResource(f'dialogTemplate/{self.activeLanguage()}.json'), self.getResource(f'Backup/dialogTemplate/{self.activeLanguage()}.json') ])
 			self.logDebug(f"Just backed up your Radio configuration")
 
