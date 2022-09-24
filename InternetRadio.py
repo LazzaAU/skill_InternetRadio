@@ -2,7 +2,6 @@ import json
 import re
 import urllib
 
-#from skills.AliceDevTools import AliceDevTools
 from core.base.model.AliceSkill import AliceSkill
 from core.dialog.model.DialogSession import DialogSession
 from core.util.Decorators import IntentHandler
@@ -23,8 +22,6 @@ class InternetRadio(AliceSkill):
 		self._data = dict()
 		self._backupPath = ""
 		self.playlist = list()
-		#AliceDev used for internal developer use
-		#self.AliceDev = AliceDevTools.AliceDevTools()
 
 		super().__init__()
 
