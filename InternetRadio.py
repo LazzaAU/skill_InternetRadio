@@ -18,7 +18,7 @@ class InternetRadio(AliceSkill):
 	_BACKUPCONFIGTEMPLATE = 'Backup/config.json.template'
 	def __init__(self):
 
-		self._templatePath = '/InternetRadio/config.json.template'
+		self._templatePath = f'/InternetRadio/{self._CONFIGTEMPLATE}'
 		self._selectedStation = ""
 		self._data = dict()
 		self._backupPath = ""
