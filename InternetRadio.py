@@ -34,15 +34,15 @@ class InternetRadio(AliceSkill):
 		:param session: the dialog session
 		:return:
 		"""
-		if 'StopTheRadio' in session.slotsAsObjects:
-			self.Commons.runSystemCommand(f'mpc stop '.split())
-			self.Commons.runSystemCommand(f'mpc clear '.split())
-			if self.getConfig('startPlaying'):
-				self.updateConfig(key='startPlaying', value=False)
+
+		self.Commons.runSystemCommand(f'mpc stop '.split())
+		self.Commons.runSystemCommand(f'mpc clear '.split())
+		if self.getConfig('startPlaying'):
+			self.updateConfig(key='startPlaying', value=False)
 
 		self.endDialog(
 			sessionId=session.sessionId,
-			text=self.randomTalk(text="dialogMessage4"),
+			text=self.randomTalk(text="StopPlaying"),
 			deviceUid=session.deviceUid
 		)
 
@@ -57,7 +57,7 @@ class InternetRadio(AliceSkill):
 
 			self.endDialog(
 				sessionId=session.sessionId,
-				text=self.randomTalk(text="dialogMessage4"),
+				text=self.randomTalk(text="StartPlaying"),
 				deviceUid=session.deviceUid
 			)
 			return
@@ -72,7 +72,7 @@ class InternetRadio(AliceSkill):
 			if number > listLength:
 				self.endDialog(
 					sessionId=session.sessionId,
-					text=self.randomTalk(text="dialogMessage1", replace=[number, listLength +1]),
+					text=self.randomTalk(text="NrOutOfRange", replace=[number, listLength +1]),
 					deviceUid=session.deviceUid
 				)
 				return
@@ -85,7 +85,7 @@ class InternetRadio(AliceSkill):
 						self.updateConfig(key='radioStations', value=self._selectedStation)
 						self.endDialog(
 							sessionId=session.sessionId,
-							text=self.randomTalk(text="dialogMessage4"),
+							text=self.randomTalk(text="StartPlaying"),
 							deviceUid=session.deviceUid
 						)
 						self.stationSelected(station=self._selectedStation)
@@ -102,7 +102,7 @@ class InternetRadio(AliceSkill):
 				self.updateConfig(key='radioStations', value=self._selectedStation)
 				self.endDialog(
 					sessionId=session.sessionId,
-					text=self.randomTalk(text="dialogMessage4"),
+					text=self.randomTalk(text="StartPlaying"),
 					deviceUid=session.deviceUid
 				)
 				self.stationSelected(station=self._selectedStation)
@@ -110,7 +110,7 @@ class InternetRadio(AliceSkill):
 		else:
 			self.endDialog(
 				sessionId=session.sessionId,
-				text=self.randomTalk(text="dialogMessage2"),
+				text=self.randomTalk(text="StationNotFound"),
 				deviceUid=session.deviceUid
 			)
 
@@ -138,7 +138,7 @@ class InternetRadio(AliceSkill):
 					]
 				)
 			self.say(
-				text=self.randomTalk(text="dialogMessage5")
+				text=self.randomTalk(text="StopPlaying")
 			)
 
 		return True
@@ -176,7 +176,7 @@ class InternetRadio(AliceSkill):
 		if session:
 			self.endDialog(
 				sessionId=session.sessionId,
-				text=self.randomTalk(text="dialogMessage3")
+				text=self.randomTalk(text="Confirmation")
 			)
 		return True
 

@@ -51,7 +51,7 @@ To play the radio
 - Play station number 3
 
 * Or from the skill settings :
-- Selecting a different station in the dop down list will automatically play that station
+- Selecting a different station in the drop-down list will automatically play that station
 - Enabling "turn on the radio" in the skill settings will play the current listed station
 
 Changing between stations can be done by :

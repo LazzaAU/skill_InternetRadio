@@ -2,7 +2,7 @@
 	"name": "InternetRadio",
 	"speakableName": "Listen to the radio",
 	"version": "1.0.0",
-	"icon": "fab fa-battle-net",
+	"icon": "fas fa-radio",
 	"category": "entertainment",
 	"author": "lazza",
 	"maintainers": [],
@@ -15,7 +15,8 @@
 	],
 	"conditions": {
 		"lang": [
-			"en"
+			"en",
+			"de"
 		],
 		"online": true
 	}

@@ -1,0 +1,260 @@
+{
+    "skill": "InternetRadio",
+    "slotTypes": [
+        {
+            "name": "RadioStation",
+            "matchingStrictness": null,
+            "automaticallyExtensible": false,
+            "useSynonyms": true,
+            "values": [
+                {
+                    "value": "radio 1",
+                    "synonyms": []
+                },
+                {
+                    "value": "K G E D",
+                    "synonyms": []
+                },
+                {
+                    "value": "K D F C",
+                    "synonyms": []
+                },
+                {
+                    "value": "B B C",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 5",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 6",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 7",
+                    "synonyms": []
+                },
+                {
+                    "value": "w b j c",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 9",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 10",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 11",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 12",
+                    "synonyms": []
+                },
+                {
+                    "value": "radio 13",
+                    "synonyms": []
+                },
+                {
+                    "value": "BAGeL Radio",
+                    "synonyms": []
+                },
+                {
+                    "value": "Boot Liquor",
+                    "synonyms": []
+                },
+                {
+                    "value": "Thistle Radio",
+                    "synonyms": []
+                },
+                {
+                    "value": "Chillout",
+                    "synonyms": []
+                },
+                {
+                    "value": "Commodore 64 Remixes",
+                    "synonyms": []
+                },
+                {
+                    "value": "Covers",
+                    "synonyms": []
+                },
+                {
+                    "value": "Downtempo",
+                    "synonyms": []
+                },
+                {
+                    "value": "Dub Step",
+                    "synonyms": []
+                },
+                {
+                    "value": "Electronic Dance",
+                    "synonyms": []
+                },
+                {
+                    "value": "Folk Music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Hot 97 NYC",
+                    "synonyms": []
+                },
+                {
+                    "value": "Beat Blender",
+                    "synonyms": []
+                },
+                {
+                    "value": "Indie Pop",
+                    "synonyms": []
+                },
+                {
+                    "value": "Intelligent dance music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Jazz music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Lounge music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Pop music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Frequence 3",
+                    "synonyms": []
+                },
+                {
+                    "value": "Progressive music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Public Radio ",
+                    "synonyms": []
+                },
+                {
+                    "value": "Reggae music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Rock Music",
+                    "synonyms": []
+                },
+                {
+                    "value": "Rock Goth",
+                    "synonyms": []
+                },
+                {
+                    "value": "Beyond Metal",
+                    "synonyms": []
+                },
+                {
+                    "value": "Dance UK",
+                    "synonyms": []
+                },
+                {
+                    "value": "JazzGroove",
+                    "synonyms": []
+                },
+                {
+                    "value": "Main Mix",
+                    "synonyms": []
+                },
+                {
+                    "value": "Mellow Mix",
+                    "synonyms": []
+                },
+                {
+                    "value": "Rock Mix",
+                    "synonyms": []
+                },
+                {
+                    "value": "Eclectic Mix",
+                    "synonyms": []
+                },
+                {
+                    "value": "Echoes of Bluemars",
+                    "synonyms": []
+                },
+                {
+                    "value": "Cryoslee",
+                    "synonyms": []
+                },
+                {
+                    "value": "Voices from Within",
+                    "synonyms": []
+                },
+                {
+                    "value": "Triple J",
+                    "synonyms": []
+                }
+            ]
+        },
+        {
+            "name": "StopTheRadio",
+            "matchingStrictness": null,
+            "automaticallyExtensible": false,
+            "useSynonyms": true,
+            "values": [
+                {
+                    "value": "Stop the radio",
+                    "synonyms": [
+                        "cancel",
+                        "stop playing"
+                    ]
+                }
+            ]
+        }
+    ],
+    "intents": [
+        {
+            "name": "ListenToRadio",
+            "enabledByDefault": true,
+            "utterances": [
+                "Spiele den Radiosender {B B C:=>RadioStation}",
+                "Starte den Radio auf Sender {B B C:=>RadioStation}",
+                "Starte {b b c:=>RadioStation} im Radio",
+                "Was läuft im Radio",
+                "Spiele Radiosender {3:=>number}",
+                "Spiele Radiosender nummer {5:=>number}",
+                "Bitte spiele den Radiosender mit Nummer {1:=>number}",
+                "Starte den Radio",
+                "Ich möchte bitte den Radiosender {B B C:=>RadioStation} hören"
+            ],
+            "slots": [
+                {
+                    "name": "RadioStation",
+                    "required": false,
+                    "type": "RadioStation",
+                    "missingQuestion": ""
+                },
+                {
+                    "name": "number",
+                    "required": false,
+                    "type": "snips/number",
+                    "missingQuestion": ""
+                }
+            ]
+        },
+        {
+            "name": "StopPlayingRadio",
+            "enabledByDefault": true,
+            "utterances": [
+                "Stoppe das Radio",
+			  	"Halte das Radio an",
+                "Schalte den Radio aus",
+                "Schalte das Radio aus",
+                "Schalte das Radio ab",
+                "Schalte das Radio ab"
+            ],
+            "slots": []
+        }
+    ]
+}

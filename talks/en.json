@@ -1,17 +1,17 @@
 {
-    "dialogMessage1": {
+    "NrOutOfRange": {
         "default": [
             "{0} was out of range. Ask me again with a number below {1}",
 			"Number {0} is not found, try a number below {1}",
 			"Try a number below {1}. Because {0} doesn't work for me"
         ],
         "short": [
-            "Sorry, again ?",
+            "Number too large",
 			"Try number below {1}",
-			"Failed"
+			"Try a smaller number"
         ]
     },
-    "dialogMessage2": {
+    "StationNotFound": {
         "default": [
             "Couldn't find that station. Please try again",
 			"Seems to be a issue there, try another station",
@@ -22,7 +22,7 @@
             "Can't locate that"
         ]
     },
-    "dialogMessage3": {
+    "confirmation": {
         "default": [
             "ok"
         ],
@@ -30,7 +30,7 @@
             "ok"
         ]
     },
-	"dialogMessage4": {
+	"StartPlaying": {
 		"default": [
 			"Ok, Playing the radio now ",
 			"Done. Remember to put your dancing shoes on",
@@ -41,7 +41,7 @@
 			"ok"
 		]
 	},
-	"dialogMessage5": {
+	"StopPlaying": {
 		"default": [
 			"No worries, Stopping the Radio now "
 			],

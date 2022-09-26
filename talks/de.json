@@ -1,0 +1,55 @@
+{
+    "NrOutOfRange": {
+        "default": [
+            "{0} ist außerhalb meines Bereichs. Versuche es mit einer Zahl kleiner als {1}",
+			"Nummer {0} fehlt, versuche es unter {1}.",
+			"Versuche eine Zahl kleiner als {1}. Leider funktioniert die {0} für mich nicht!"
+        ],
+        "short": [
+			"Bitte kleiner {1}!",
+		  	"Versuche einen Wert kleiner {1}"
+        ]
+    },
+    "StationNotFound": {
+        "default": [
+		  	"Ich konnte den Sender nicht finden!",
+		  	"Den Sender kann ich nicht finden",
+		  	"Den Sender kenne ich leider nicht",
+		  	"Ohje! Mit dem Sender kann ich nichts anfangen!"
+        ],
+        "short": [
+            "Unbekannter Sender"
+        ]
+    },
+    "confirmation": {
+        "default": [
+            "ok"
+        ],
+        "short": [
+            "ok"
+        ]
+    },
+	"StartPlaying": {
+		"default": [
+			"Ok, ab geht das Radio!",
+			"Erledigt. Vergiss deine Tanzschuhe nicht!",
+			"Lass uns die Bude rocken!",
+			"Ok ok, ich überlasse das Singen den Profis. Radio an!"
+		],
+		"short": [
+			"ok"
+		]
+	},
+	"StopPlaying": {
+		"default": [
+			"Genug davon, Radio aus.",
+			"Ok, Radio aus.",
+			"Puh, ich bin schon ganz außer Atmen!",
+			"Ich schalte das Radio für dich aus.",
+			"Radio aus, Alice an!"
+		],
+		"short": [
+			"ok"
+		]
+	}
+}
